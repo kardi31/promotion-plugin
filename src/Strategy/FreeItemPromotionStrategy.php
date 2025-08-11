@@ -45,7 +45,7 @@ class FreeItemPromotionStrategy extends AbstractPromotionStrategy implements Cus
 
         return $discountLineItem;
     }
-    
+
     public function getDiscountValue(Cart $cart, SalesChannelContext $context): ?CalculatedPrice
     {
         $products = $this->findProducts($cart);
