@@ -3,6 +3,7 @@
 namespace KardiPromoPlugin\Tests\Strategy;
 
 use KardiPromoPlugin\Strategy\FreeItemPromotionStrategy;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Checkout\Cart\Cart;
 use Shopware\Core\Checkout\Cart\LineItem\LineItem;
@@ -26,17 +27,15 @@ class FreeItemStrategyTest extends TestCase
         $this->calculatedTaxCollection = $this->createMock(CalculatedTaxCollection::class);
     }
 
-    /**
-     * @dataProvider provideEligibleProducts
-     */
+    #[DataProvider('provideEligibleProducts')]
     public function testRunWhenProductsEligible(array $products, float $expectedDiscountValue)
     {
-        $this->translator->method('trans')->willReturn('some random name');
+        $this->translator->method('trans')->willReturn('some_random_name');
 
         $strategy = new FreeItemPromotionStrategy($this->calculator, $this->translator);
         $lineItems = [];
         foreach ($products as $key => $product) {
-            $item = new LineItem((string)$key, LineItem::PRODUCT_LINE_ITEM_TYPE, null, $product['quantity']);
+            $item = new LineItem((string) ($key+1), LineItem::PRODUCT_LINE_ITEM_TYPE, null, $product['quantity']);
             $item->setPrice(new CalculatedPrice($product['price'], $product['price'], $this->calculatedTaxCollection, $this->taxRules));
             $lineItems[] = $item;
         }
@@ -50,15 +49,13 @@ class FreeItemStrategyTest extends TestCase
         $this->assertInstanceOf(LineItem::class, $discountLineItem);
     }
 
-    /**
-     * @dataProvider provideNotEligibleProducts
-     */
+    #[DataProvider('provideNotEligibleProducts')]
     public function testRunWhenProductsNotEligible(array $products, float $expectedDiscountValue)
     {
         $strategy = new FreeItemPromotionStrategy($this->calculator, $this->translator);
         $lineItems = [];
         foreach ($products as $key => $product) {
-            $item = new LineItem((string)$key, LineItem::PRODUCT_LINE_ITEM_TYPE, null, $product['quantity']);
+            $item = new LineItem((string) ($key+1), LineItem::PRODUCT_LINE_ITEM_TYPE, null, $product['quantity']);
             $item->setPrice(new CalculatedPrice($product['price'], $product['price'], $this->calculatedTaxCollection, $this->taxRules));
             $lineItems[] = $item;
         }
@@ -72,17 +69,15 @@ class FreeItemStrategyTest extends TestCase
         $this->assertNull($discountLineItem);
     }
 
-    /**
-     * @dataProvider provideEligibleProducts
-     */
+    #[DataProvider('provideEligibleProducts')]
     public function testGetDiscountValueWhenProductsEligible(array $products, float $expectedDiscountValue)
     {
-        $this->translator->method('trans')->willReturn('some random name');
+        $this->translator->method('trans')->willReturn('some_random_name');
 
         $strategy = new FreeItemPromotionStrategy($this->calculator, $this->translator);
         $lineItems = [];
         foreach ($products as $key => $product) {
-            $item = new LineItem((string)$key, LineItem::PRODUCT_LINE_ITEM_TYPE, null, $product['quantity']);
+            $item = new LineItem((string) ($key+1), LineItem::PRODUCT_LINE_ITEM_TYPE, null, $product['quantity']);
             $item->setPrice(new CalculatedPrice($product['price'], $product['price'], $this->calculatedTaxCollection, $this->taxRules));
             $lineItems[] = $item;
         }
@@ -96,15 +91,13 @@ class FreeItemStrategyTest extends TestCase
         $this->assertEquals($expectedDiscountValue, $discountValue->getTotalPrice());
     }
 
-    /**
-     * @dataProvider provideNotEligibleProducts
-     */
+    #[DataProvider('provideNotEligibleProducts')]
     public function testGetDiscountValueWhenProductsNotEligible(array $products, float $expectedDiscountValue)
     {
         $strategy = new FreeItemPromotionStrategy($this->calculator, $this->translator);
         $lineItems = [];
         foreach ($products as $key => $product) {
-            $item = new LineItem((string)$key, LineItem::PRODUCT_LINE_ITEM_TYPE, null, $product['quantity']);
+            $item = new LineItem((string) ($key+1), LineItem::PRODUCT_LINE_ITEM_TYPE, null, $product['quantity']);
             $item->setPrice(new CalculatedPrice($product['price'], $product['price'], $this->calculatedTaxCollection, $this->taxRules));
             $lineItems[] = $item;
         }

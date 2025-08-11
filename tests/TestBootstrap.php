@@ -42,7 +42,7 @@ if (class_exists('\Shopware\Core\Kernel')) {
     throw new \RuntimeException('Cannot detect kernel class by own.');
 }
 
-(new Dotenv(true))->load($testProjectDir . '/.env');
+(new Dotenv())->load($testProjectDir . '/.env');
 
 $dbUrl = \getenv('DATABASE_URL');
 if ($dbUrl !== false) {

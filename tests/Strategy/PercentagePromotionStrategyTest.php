@@ -3,6 +3,7 @@
 namespace KardiPromoPlugin\Tests\Strategy;
 
 use KardiPromoPlugin\Strategy\PercentagePromotionStrategy;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Shopware\Core\Checkout\Cart\Cart;
 use Shopware\Core\Checkout\Cart\LineItem\LineItem;
@@ -28,13 +29,11 @@ class PercentagePromotionStrategyTest extends TestCase
         $this->cartPrice = $this->createMock(CartPrice::class);
     }
 
-    /**
-     * @dataProvider provideCheapProducts
-     */
+    #[DataProvider('provideCheapProducts')]
     public function testRunWhenBelowThreshold(array $products, float $cartValue, float $expectedDiscountValue)
     {
 
-        $this->translator->method('trans')->willReturn('some random name');
+        $this->translator->method('trans')->willReturn('some_random_name');
 
         $lineItems = [];
         foreach ($products as $key => $product) {
@@ -53,12 +52,10 @@ class PercentagePromotionStrategyTest extends TestCase
         $this->assertNull($discountLineItem);
     }
 
-    /**
-     * @dataProvider provideExpensiveProducts
-     */
+    #[DataProvider('provideExpensiveProducts')]
     public function testRunWhenOverThreshold(array $products, float $cartValue, float $expectedDiscountValue)
     {
-        $this->translator->method('trans')->willReturn('some random name');
+        $this->translator->method('trans')->willReturn('some_random_name');
 
         $lineItems = [];
         foreach ($products as $key => $product) {
@@ -78,9 +75,7 @@ class PercentagePromotionStrategyTest extends TestCase
         $this->assertEquals($discountLineItem->getPrice()->getTotalPrice(), $expectedDiscountValue);
     }
 
-    /**
-     * @dataProvider provideExpensiveProducts
-     */
+    #[DataProvider('provideExpensiveProducts')]
     public function testGetDiscountValueWhenOverThreshold(array $products, float $cartValue, float $expectedDiscountValue)
     {
         $lineItems = [];
@@ -100,9 +95,7 @@ class PercentagePromotionStrategyTest extends TestCase
         $this->assertEquals($discountValue->getTotalPrice(), $expectedDiscountValue);
     }
 
-    /**
-     * @dataProvider provideCheapProducts
-     */
+    #[DataProvider('provideCheapProducts')]
     public function testGetDiscountValueWhenBelowThreshold(array $products, float $cartValue, float $expectedDiscountValue)
     {
         $lineItems = [];

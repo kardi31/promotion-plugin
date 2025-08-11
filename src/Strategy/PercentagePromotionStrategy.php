@@ -38,7 +38,7 @@ class PercentagePromotionStrategy extends AbstractPromotionStrategy implements C
             return null;
         }
 
-        $discountLineItem = $this->createDiscount($this->translator->trans(self::PROMOTION_CODE));
+        $discountLineItem = $this->createDiscount($this->translator->trans(self::PROMOTION_CODE), self::PROMOTION_TYPE);
         $discountLineItem->setPriceDefinition($this->getPriceDefinition($products));
         $discountLineItem->setPrice($discountValue);
 

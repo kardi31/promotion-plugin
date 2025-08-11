@@ -7,10 +7,10 @@ use Shopware\Core\Checkout\Cart\LineItem\LineItem;
 
 abstract class AbstractPromotionStrategy
 {
-    protected function createDiscount(string $name): LineItem
+    protected function createDiscount(string $name, string $code): LineItem
     {
         $discountLineItem = new LineItem(
-            $name,
+            $code,
             CustomPromotionStrategyInterface::PROMOTION_TYPE,
             null,
             1

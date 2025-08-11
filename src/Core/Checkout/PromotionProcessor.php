@@ -25,7 +25,8 @@ class PromotionProcessor implements CartProcessorInterface
         SalesChannelContext $context,
         CartBehavior $behavior
     ): void {
-        $maxValue = 0;
+        // negative value
+        $highestDiscount = 0;
         $highestValueStrategy = null;
         foreach ($this->strategies as $strategy) {
             if (!$strategy instanceof CustomPromotionStrategyInterface) {
@@ -38,9 +39,9 @@ class PromotionProcessor implements CartProcessorInterface
             }
 
             $discountValue = $strategy->getDiscountValue($toCalculate, $context);
-            if ($discountValue && $discountValue->getTotalPrice() > $maxValue) {
+            if ($discountValue && $discountValue->getTotalPrice() < $highestDiscount) {
                 $highestValueStrategy = $strategy;
-                $maxValue = $discountValue->getTotalPrice();
+                $highestDiscount = $discountValue->getTotalPrice();
             }
         }
 

@@ -39,7 +39,7 @@ class FreeItemPromotionStrategy extends AbstractPromotionStrategy implements Cus
 
         $discountPrice = $this->calculateDiscountPrice($products);
 
-        $discountLineItem = $this->createDiscount($this->translator->trans(self::PROMOTION_CODE));
+        $discountLineItem = $this->createDiscount($this->translator->trans(self::PROMOTION_CODE), self::PROMOTION_TYPE);
         $discountLineItem->setPriceDefinition($this->getPriceDefinition($discountPrice, $products));
         $discountLineItem->setPrice($discountValue);
 
@@ -94,6 +94,7 @@ class FreeItemPromotionStrategy extends AbstractPromotionStrategy implements Cus
             }
         }
 
-        return $discountPrice;
+        // discount line items should have a negative value to reduce the price of order
+        return -1 * $discountPrice;
     }
 }
