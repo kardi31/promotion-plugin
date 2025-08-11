@@ -2,7 +2,7 @@
     "name": "kardi-promo-plugin/kardi-promo-plugin",
     "description": "kardi-promo-plugin/kardi-promo-plugin",
     "type": "shopware-platform-plugin",
-    "version": "1.0.21",
+    "version": "1.0.0",
     "license": "MIT",
     "require": {
         "shopware/core": "~6.7"
