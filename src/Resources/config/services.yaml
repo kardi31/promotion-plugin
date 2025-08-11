@@ -1,0 +1,16 @@
+services:
+    _defaults:
+        autowire: true
+        public: true
+        autoconfigure: true
+    KardiPromoPlugin\Strategy\FreeItemPromotionStrategy: ~
+    KardiPromoPlugin\Strategy\PercentagePromotionStrategy: ~
+    KardiPromoPlugin\Core\Checkout\PromotionProcessor:
+        autowire: true
+        arguments:
+            - !tagged_iterator { tag: 'custom_promotion_strategy' }
+        tags:
+            - { name: 'shopware.cart.processor', priority: 4500 }
+    _instanceof:
+        KardiPromoPlugin\Strategy\CustomPromotionStrategyInterface:
+            tags: [ 'custom_promotion_strategy' ]

@@ -1,0 +1,27 @@
+{
+    "name": "kardi-promo-plugin/kardi-promo-plugin",
+    "description": "kardi-promo-plugin/kardi-promo-plugin",
+    "type": "shopware-platform-plugin",
+    "version": "1.0.21",
+    "license": "MIT",
+    "require": {
+        "shopware/core": "~6.4.4"
+    },
+    "extra": {
+        "shopware-plugin-class": "KardiPromoPlugin\\KardiPromoPlugin",
+        "label": {
+            "de-DE": "KardiPromoPlugin",
+            "en-GB": "KardiPromoPlugin"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "KardiPromoPlugin\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "KardiPromoPlugin\\Tests\\": "tests/"
+        }
+    }
+}
